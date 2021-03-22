@@ -1,15 +1,22 @@
 <template>
-  <div class="loginbox">
-    <div class="formulario" v-if="!user.email">
-      <input v-model="email" placeholder="email" />
-      <input v-model="password" placeholder="password" />
-      <div>
-        <button @click="login" class="btn btn-info">Login</button>
+  <div class="centrado">
+    <div class="fondo">
+      <figure class="imagen">
+        <img src="../assets/logo.png" alt="logo tareas" />
+      </figure>
+      <div class="centrado2" v-if="!user.email">
+        <div class="login">
+          <input class="caja" v-model="email" placeholder="email" />
+          <input class="caja" v-model="password" placeholder="password" />
+        </div>
+        <div>
+          <button @click="login" class="btn boton">Login</button>
+        </div>
       </div>
-    </div>
-    <div v-else>
-      Bienvenid@ {{ user.nombre }} {{user.apellidos}} 
-        <button class="btn btn-warning" @click="logout">Salir</button>
+      <div v-else>
+        Bienvenid@ {{ user.nombre }} {{ user.apellidos }}
+        <button class="btn boton" @click="logout">Salir</button>
+      </div>
     </div>
   </div>
 </template>
@@ -39,19 +46,19 @@ export default {
       })
         .then((resp) => resp.json())
         .then((user) => {
-          if (user) store.commit("setUser", user)
-          else alert("Usuario o password incorrectos")
-        })
+          if (user) store.commit("setUser", user);
+          else alert("Usuario o password incorrectos");
+        });
     }
- 
+
     function logout() {
-        store.commit("setUser", {})
+      store.commit("setUser", {});
     }
 
     return {
       email,
       password,
-      login, 
+      login,
       logout,
       user,
     };
@@ -60,16 +67,51 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.loginbox {
-  max-width: 300px;
-  padding: 10px;
-  .formulario {
-    display: inline-flex;
-    input,
-    button {
-      width: 80%;
-      margin: 5px;
-    }
-  }
+.centrado {
+  display: grid;
+  justify-content: center;
+  flex-direction: column;
+}
+.centrado2 {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 50px;
+}
+.login {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+} 
+.caja {
+  width: 120px;
+}
+.fondo {
+  display: flex;
+  flex-direction: column;
+  border: 10px solid #6ccff1;
+  border-radius: 8px;
+  height: 560px;
+  width: 90%;
+  margin: 10px;
+  text-align: center;
+}
+.boton {
+  margin-top: 40px;
+  margin-right: 5px;
+  color: white;
+  border: 2px solid #c6b7e0;
+  background: #c6b7e0;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 80px;
+  height: 30px;
+}
+.imagen {
+  display: flex;
+  justify-content: center;
+  width: 230px;
+  height: 190px;
+  margin-top: 40px;
 }
 </style>

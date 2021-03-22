@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3> RUTINA MAÑANA &#128073;</h3>
+    <h3> VESTIRSE &#128073;</h3>
     <p>Me levanto y preparo todo antes de salir de casa.</p>
     <label for="tarea1">Lavarse dientes</label><input type="checkbox" name="tarea1" id="" value="tarea1"><br>
     <label for="tarea2">Desayunar</label><input type="checkbox" name="tarea2" id="" value="tarea2"><br>

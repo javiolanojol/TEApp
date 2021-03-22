@@ -1,11 +1,17 @@
 <template>
   <div>
-    <LoginBox />
-    <Cabecera />
-    <Tarea />
+    <div>
+     <LoginBox />
+    </div>
    
 
-       
+  <!--   <Cabecera /> -->
+    <!-- <hr>
+    <Tarea />
+    <hr>
+    <Tarea />
+    <hr>
+    <Tarea />     -->
   </div>
 </template>
 
