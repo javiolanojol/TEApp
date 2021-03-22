@@ -6,10 +6,19 @@ const schemaUser = new Schema({
   username: {
     type: String,
     required: [true, "El nombre no puede ir vacío"],
-    unique: true,
     validate: {
       validator: function (name) { return /^[a-zÀ-ÿ\u00f1\u00d1\s]{2,}$/i.test(name) },
       message: "El nombre no es válido"
+    }
+  },
+  email: {
+    type: String,
+    required: [true, "El email no puede ir vacío"],
+    unique: true,
+    lowercase: true,
+    validate: {
+      validator: function (email) { return /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/.test(email) },
+      message: "El email no es válido"
     }
   },
   password: {
@@ -19,6 +28,10 @@ const schemaUser = new Schema({
       validator: function (password) { return /^[a-zÀ-ÿ0-9\u00f1\u00d1\s]{6,}$/i.test(password) },
       message: "La contraseña ha de tener un mínimo de 6 letras o números"
     },
+  },
+  score: {
+    type: Number,
+    default: 0
   }
 })
 

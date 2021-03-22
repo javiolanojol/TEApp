@@ -18,18 +18,18 @@ daoUsers.showByUsername = function showByUsername(username) {
   })
 }
 
-daoUsers.findByUsername = function findByUsername(username) {
+daoUsers.findByEmail = function findByEmail(email) {
   return new Promise((resolve, reject) => {
-    resolve(User.findOne({ username: username }))
+    resolve(User.findOne({ email: email }))
   })
 }
 
 daoUsers.login = function login(credentials) {
   return new Promise((resolve, reject) => {
-    daoUsers.findByUsername(credentials.username)
+    daoUsers.findByEmail(credentials.email)
       .then(async member => {
         if (member == null) {
-          credentials.noUsername = true
+          credentials.noEmail = true
           resolve(credentials)
         } else {
           let response = await bcrypt.compare(credentials.password, member.password)
@@ -43,9 +43,9 @@ daoUsers.login = function login(credentials) {
   })
 }
 
-daoUsers.deleteUser = function deleteUser(username) {
+daoUsers.deleteUser = function deleteUser(email) {
   return new Promise((resolve, reject) => {
-    resolve(User.findOneAndDelete({ username: username }))
+    resolve(User.findOneAndDelete({ email: email }))
   })
 }
 
@@ -55,7 +55,7 @@ daoUsers.changeProfile = function changeProfile(user) {
     let error = {}
     error = member.validateSync()
     if (error.errors.username == undefined) {
-      User.findOneAndUpdate({ username: user.username }, { username: user.username, password: user.password })
+      User.findOneAndUpdate({ email: user.email }, { username: user.username })
         .then(() => {
           resolve(member)
         })
