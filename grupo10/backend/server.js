@@ -23,9 +23,9 @@ app.use((req, res, next) => {
 })
 
 //enrutadores
-app.use('/users',rtUsers)
-app.use('/blocks',rtBlocks)
-app.use('/stories',rtStories)
+app.use('/user',rtUsers)
+app.use('/block',rtBlocks)
+app.use('/storie',rtStories)
 
 app.listen(port,(err)=>{
     if(err) console.log("Errores: ", err)
