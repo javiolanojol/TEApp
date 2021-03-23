@@ -150,10 +150,11 @@ input {
   flex-direction: column;
   border: 10px solid #6ccff1;
   border-radius: 8px;
-  height: 560px;
+  height: 90vh;
   width: 320px;
   margin: 10px;
   text-align: center;
+  overflow: scroll;
 }
 .boton {
   margin-top: 40px;
