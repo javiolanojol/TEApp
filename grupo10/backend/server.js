@@ -2,8 +2,7 @@ const express = require('express')
 const app = express()
 const port = process.env.PORT || 8081
 const rtUsers = require('./routers/rtUsers')
-const rtBlocks = require('./routers/rtBlocks')
-const rtStories = require('./routers/rtStories')
+const rtTasks = require('./routers/rtTasks')
 
 //base de datos
 const conexion = require('./mongodb')
@@ -23,9 +22,8 @@ app.use((req, res, next) => {
 })
 
 //enrutadores
-app.use('/users',rtUsers)
-app.use('/blocks',rtBlocks)
-app.use('/stories',rtStories)
+app.use('/user',rtUsers)
+app.use('/task',rtTasks)
 
 app.listen(port,(err)=>{
     if(err) console.log("Errores: ", err)
