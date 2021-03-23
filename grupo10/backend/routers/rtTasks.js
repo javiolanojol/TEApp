@@ -23,7 +23,7 @@ rtTasks.post("/create",(req,res) => {
 })
 
 rtTasks.post("/list", (req, res) => {
-  daoTasks.findById(req.body._id)
+  daoTasks.findById(req.body.id)
   .then(list=>{
     res.json(list)
   })

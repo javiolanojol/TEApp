@@ -21,10 +21,10 @@
       </div>
       <div v-else>
         <div class="cabecera">
-          <span>{{user.username}} | &#9733; {{user.score}}</span>
+          <span>{{ user.username }} | &#9733; {{ user.score }}</span>
           <button class="btn boton" @click="logout">Salir</button>
         </div>
-        <hr>
+        <hr />
         <div class="semana">
           <div>L</div>
           <div class="active">M</div>
@@ -34,26 +34,28 @@
           <div>S</div>
           <div>D</div>
         </div>
-         <progress id="file" max="4" :value="progress"></progress>
-         <Tarea 
-          title="Vestirse &#128085;"
-          description="Me pongo la ropa y preparo mochila"
-          score="3"
-         />
+        <progress id="file" max="4" :value="progress"></progress>
+        <div v-if="tareas">
+          <Tarea v-for="(item,i) in tareas" :key="i" 
+            :title="item.title"
+            :description="item.description"
+            :score="item.score"
+          />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Tarea from '@/components/user/Tarea'
+import Tarea from "@/components/user/Tarea";
 import { ref, reactive, computed } from "vue";
 import { useStore } from "vuex";
 export default {
   name: "LoginBox",
   props: {},
   components: {
-    Tarea
+    Tarea,
   },
 
   setup() {
@@ -63,7 +65,8 @@ export default {
     let user = computed(() => {
       return store.getters.getUser;
     });
-    let progress = 3
+    let progress = 3;
+    let tareas = reactive([]);
 
     function login() {
       fetch("http://localhost:8081/user/login", {
@@ -76,9 +79,23 @@ export default {
       })
         .then((resp) => resp.json())
         .then((user) => {
-          if (user.datos.noEmail!=true) store.commit("setUser", user.datos);
+          if (user.datos.noEmail != true) store.commit("setUser", user.datos);
           else alert("Usuario o password incorrectos");
           console.log(user);
+          tareas.splice(0)
+          user.datos.tasks.forEach((element) => {
+            fetch("http://localhost:8081/task/list", {
+              method: "POST",
+              body: JSON.stringify({
+                id: element
+              }),
+              headers: { "Content-Type": "Application/json" },
+            }).then((resp) => resp.json())
+              .then((tarea)=>{
+                tareas.push(tarea)
+              })
+          });
+          console.log(tareas);
         });
     }
 
@@ -92,7 +109,8 @@ export default {
       login,
       logout,
       user,
-      progress
+      progress,
+      tareas,
     };
   },
 };
@@ -120,7 +138,7 @@ export default {
   justify-content: space-between;
   padding: 8px;
   button {
-    margin: 0
+    margin: 0;
   }
 }
 input {
@@ -156,16 +174,16 @@ input {
   margin-top: 40px;
 }
 progress {
-  margin-top:15px;
+  margin-top: 15px;
   margin-bottom: 15px;
   width: 70%;
   height: 20px;
   border-radius: 4px;
-  padding: 5px 10px; 
+  padding: 5px 10px;
 }
 progress::-webkit-progress-bar {
   border-radius: 4px;
-  background-color:rgb(240, 233, 233) ; 
+  background-color: rgb(240, 233, 233);
 }
 progress::-webkit-progress-value {
   background-color: #c6b7e0;
@@ -180,9 +198,8 @@ progress::-webkit-progress-value {
     width: 22px;
   }
   .active {
-     background-color: #31a6ce;
-    }
+    background-color: #31a6ce;
+  }
 }
-
 </style>
 

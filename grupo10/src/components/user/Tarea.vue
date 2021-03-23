@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="tarea" @click="acordeon">
-      <h3>{{title}}</h3>
+    <div class="tarea">
+      <h3 v-html="title" @click="acordeon"></h3>
       <div v-if="toggle">
         <p>{{description}}</p>
         <h4>Consigues: {{score}} &#9733;</h4>
@@ -20,7 +20,7 @@ export default {
   props: {
     title: String,
     description: String,
-    score: String
+    score: Number
   },
   setup() {
     let toggle = ref(false);
@@ -40,7 +40,7 @@ export default {
 
 <style lang="scss" scoped>
 .tarea {
-  margin: 0 auto;
+  margin: 5px auto;
   width: 250px;
   border: 2px solid rgb(119, 116, 116);
   background-color: rgb(240, 233, 233);
