@@ -1,21 +1,15 @@
 <template>
   <div>
-    <h3> VESTIRSE &#128073;</h3>
-    <p>Me levanto y preparo todo antes de salir de casa.</p>
-    <label for="tarea1">Lavarse dientes</label><input type="checkbox" name="tarea1" id="" value="tarea1"><br>
-    <label for="tarea2">Desayunar</label><input type="checkbox" name="tarea2" id="" value="tarea2"><br>
-    <label for="tarea3">Hacer la cama</label><input type="checkbox" name="tarea3" id="" value="tarea3"><br>
-
-<h3>PUNTUACIÓN: 3 &#9734;</h3>
-<h3>PENDIENTE</h3>
-
-
-
-
-      	
-
+    <div class="tarea" @click="acordeon">
+      <h3>{{title}}</h3>
+      <div v-if="toggle">
+        <p>{{description}}</p>
+        <h4>Consigues: {{score}} &#9733;</h4>
+        <label for="tarea3">FINALIZADO</label>
+        <input type="checkbox" name="tarea3" id="" value="tarea3" /><br />
+      </div>
+    </div>
   </div>
-    
 </template>
 
 <script>
@@ -23,16 +17,34 @@ import { ref, reactive, computed } from "vue";
 import { useStore } from "vuex";
 export default {
   name: "Tarea",
-  props: {},
+  props: {
+    title: String,
+    description: String,
+    score: String
+  },
   setup() {
-    
+    let toggle = ref(false);
+
+    function acordeon() {
+      if (toggle.value == false) toggle.value = true;
+      else toggle.value = false;
+    }
+
     return {
-      
+      toggle,
+      acordeon,
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-
+.tarea {
+  margin: 0 auto;
+  width: 250px;
+  border: 2px solid rgb(119, 116, 116);
+  background-color: rgb(240, 233, 233);
+  border-radius: 8px;
+  padding: 5px;
+}
 </style>
