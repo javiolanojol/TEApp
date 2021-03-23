@@ -32,7 +32,8 @@ const schemaUser = new Schema({
   score: {
     type: Number,
     default: 0
-  }
+  },
+  tasks: [{type:Schema.Types.ObjectId, ref:'task'}]
 })
 
 schemaUser.pre("save", function (next) {

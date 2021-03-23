@@ -31,8 +31,7 @@ rtUsers.post("/login", (req, res) => {
       let errors = {}
       if (user.noEmail) errors.noEmail = "Usuario no existe"
       if (user.wrongPassword) errors.wrongPassword = "Contraseña incorrecta"
-      res.json({
-        datos: req.body,
+      res.json({user,
         errors: errors
         })
     })
